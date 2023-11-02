@@ -14,12 +14,7 @@ void dumpCountry(char*msg, Country*p){
     msg, p->name, p->population, p->area,
     p->next==NULL?"NULL":p->next->name);
 }
-void dumpCountry(char*msg, Country*p){
-    printf("%s Country(%s,%d,%d,next->%s)\n",
-    msg, p->name, p->population, p->area,
-    p->next==NULL?"NULL":p->next->name);
-}
-void dumpList(Country*p){
+void dumpList(char*msg, Country*p){
     while(p!=NULL){
         dumpCountry("dump",p);
         p=p->next;
@@ -67,10 +62,28 @@ void insertNode(Country*p){
             }
             prev=prev->next;
         }
+        p->next=prev->next;
+        prev->next=p;
+        printf("insert %s after %s\n", p->name, prev->name);
     }
 }
 void insertionSort(){
-
+    sorted=head;
+    head=head->next;
+    sorted->next=NULL;
+    int loop=0;
+    char msg[16];
+    sprintf(msg,"pass %d:", loop);
+    dumpList(msg, sorted);
+    Country*p;
+    while(head!=NULL){
+        p=head;
+        head=head->next;
+        p->next=NULL;
+        insertNode(p);
+        sprintf(msg,"pass %d:", ++loop);
+        dumpList(msg, sorted);
+    }
 }
 int main(){
     int n, caseno=0, population, area;
@@ -81,13 +94,16 @@ int main(){
         if(caseno>0){
             printf("\n");
         }
-        printf("Case #%d: sort Countries by \"%s\" in %s order\n", ++caseno, by, order);
+        //Case #1: sorted by "area" in descending order.
+        //Case #1: sort Countries by "area" in descending order
+        printf("Case #%d: sorted by \"%s\" in %s order.\n", ++caseno, by, order);
         head=tail=NULL;
         while(n--){
             scanf("%s%d%d", name, &population, &area);
             Country*p=newCountry(name, population, area);
             addList(p);
         }
-        
     }
+    insertionSort();
+    freeList(sorted);
 }
