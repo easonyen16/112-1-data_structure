@@ -103,7 +103,7 @@ int main(){
             Country*p=newCountry(name, population, area);
             addList(p);
         }
+        insertionSort();
+        freeList(sorted);
     }
-    insertionSort();
-    freeList(sorted);
 }
