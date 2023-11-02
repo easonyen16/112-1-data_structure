@@ -58,7 +58,7 @@ int main(){
         if(caseno>0){
             printf("\n");
         }
-        printf("Case #%d: sort Countries by \"%s\" in %s order\n", ++caseno, by, order);
+        printf("Case #%d: sorted in %s order by \"%s\".\n", ++caseno, order, by);
         head=tail=NULL;
         while(n--){
             scanf("%s%d%d", name, &population, &area);
