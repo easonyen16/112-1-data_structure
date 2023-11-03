@@ -16,7 +16,9 @@ void dumpCountry(char*msg, Country*p){
 }
 void dumpList(char*msg, Country*p){
     while(p!=NULL){
-        dumpCountry("dump",p);
+        printf("%s Country(%s,%d,%d,next->%s)\n",
+            msg, p->name, p->population, p->area,
+            p->next==NULL?"NULL":p->next->name);
         p=p->next;
     }
 }
