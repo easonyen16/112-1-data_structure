@@ -2,17 +2,16 @@
 #include <string.h>
 #include <stdlib.h>
 typedef struct _TreeNode {
-  int val;
-  struct _TreeNode *left;
-  struct _TreeNode *right;
+  int val;                       // 節點儲存的值
+  struct _TreeNode *left;        // 指向左子節點的指針
+  struct _TreeNode *right;       // 指向右子節點的指針
 } TreeNode;
-
-TreeNode*newTreeNode(char*s){
-  if(s[0]=='n') return NULL;
-  TreeNode*t=(TreeNode*)malloc(sizeof(TreeNode));
-  t->val = atoi(s);
-  t->left = t->right = NULL;
-  return t;
+TreeNode* newTreeNode(char*s){
+  if(s[0]=='n') return NULL;     // 如果字符串以 'n' 開頭，則返回 NULL，代表這是一個空節點
+  TreeNode*t=(TreeNode*)malloc(sizeof(TreeNode)); // 為新節點分配內存
+  t->val = atoi(s);              // 將字符串轉換為整數並賦值給節點
+  t->left = t->right = NULL;     // 初始化左右子節點為 NULL
+  return t;                      // 返回新創建的節點
 }
 #define MAXQSIZE 128
 #define QMASK 127
