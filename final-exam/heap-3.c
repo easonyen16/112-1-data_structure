@@ -80,13 +80,17 @@ void heapify(int a[], int n, int root){
             heapify(a, n, larger);
         }
         else{
-            printf("end");
+            printf("end\n");
         }
+    }
+    else{
+        printf("no more swa\np");
     }
 }
 void buildMaxHeap(int a[], int n){
     int parent;
     for(parent=n>>1; parent>=1; --parent){
+        printf("heapify subtree root index is %d\n", parent);
         dumpHeapTree("before heapify: ", INORDER, a, parent, n);
         heapify(a, n, parent);
         dumpHeapTree("after heapify: ", INORDER, a, parent, n);
@@ -103,9 +107,10 @@ int main() {
         arr = loadHeap(nodes);
         dumpHeap("input array:", arr, nodes, MAXNODES);
         //dumpHeapTree(" preorder heaptree> ", PREORDER, arr, 1, nodes);
-        //dumpHeapTree("  inorder heaptree> ", INORDER, arr, 1, nodes);
+        dumpHeapTree("  inorder heaptree> ", INORDER, arr, 1, nodes);
         //dumpHeapTree("postorder heaptree> ", POSTORDER, arr, 1, nodes);
         buildMaxHeap(arr, nodes);
+        dumpHeap("max-heap array:", arr, nodes, MAXNODES);
         freeHeap(arr);
     }
 }
