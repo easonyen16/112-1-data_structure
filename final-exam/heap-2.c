@@ -4,21 +4,23 @@
 #define PREORDER -1
 #define INORDER 0
 #define POSTORDER 1
-int hasHeap() {
+int hasHeap(){
     int n;
     scanf("%d", &n);
     return n;
 }
-
-int* loadHeap(int n) {
+int *loadHeap(int n){
     int size = sizeof(int) * (n+1);
     int* a = (int*) malloc(size);
     int i;
     for (i=1; i<=n; ++i) {
         scanf("%d", &a[i]);
-        printf("allocatc %d bytes of an integer array for a heap from a[1] to a[%d].\n", size, n);
     }
+    printf("allocate %d bytes of an integer array for a heap from a[1] to a[%d].\n", size, n);
     return a;
+}
+void freeHeap(int arr[]){
+  free(arr);
 }
 void dumpHeap(char msg[], int a[] , int n, int width){
     int i;
@@ -34,41 +36,38 @@ void dumpHeap(char msg[], int a[] , int n, int width){
     }
     printf("\n");
 }
-void freeHeap(int a[]){
-    free(a);
-}
-void dumpHeapSubtTree(int type, int a[], int root, int n){
+void dumpSubTree(int type, int a[], int root, int n){
     int left = root+root;
     int right = left+1;
     if(type==PREORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
     if(left<=n){
         printf("(");
-        dumpHeapSubtTree(type, a, left, n);
+        dumpSubTree(type, a, left, n);
         printf(")");
     }
     if(type==INORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
     if(right<=n){
         printf("(");
-        dumpHeapSubtTree(type, a, right, n);
+        dumpSubTree(type, a, right, n);
         printf(")");
     }
     if(type==POSTORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
 }
 void dumpHeapTree(char msg[], int type, int a[], int root, int n){
     printf("%s", msg);
-    dumpHeapSubtTree(type, a, root, n);
+    dumpSubTree();
     printf("\n");
 }
-int main() {
+int main(){
     int nodes, caseno=0;
     int* arr;
-    while ((nodes=hasHeap())) {
+    while((nodes=hasHeap())){
         if(caseno>0){
             printf("\n");
         }
