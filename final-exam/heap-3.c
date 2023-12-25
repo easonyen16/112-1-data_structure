@@ -104,7 +104,7 @@ int main(){
         printf("Case #%d: there are %d unsorted integers.\n", ++caseno, nodes);
         arr = loadHeap(nodes);
         dumpHeap("input array:", arr, nodes, MAXNODES);
-        dumpHeapTree("  inorder heaptree> ", INORDER, arr, 1, nodes);
+        dumpHeapTree("inorder heaptree> ", INORDER, arr, 1, nodes);
         buildMaxHeap(arr, nodes);
         dumpHeap("max-heap array:", arr, nodes, MAXNODES);
         freeHeap(arr);
