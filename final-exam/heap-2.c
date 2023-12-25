@@ -20,7 +20,7 @@ int *loadHeap(int n){
     return a;
 }
 void freeHeap(int arr[]){
-  free(arr);
+    free(arr);
 }
 void dumpHeap(char msg[], int a[] , int n, int width){
     int i;
@@ -61,7 +61,7 @@ void dumpSubTree(int type, int a[], int root, int n){
 }
 void dumpHeapTree(char msg[], int type, int a[], int root, int n){
     printf("%s", msg);
-    dumpSubTree();
+    dumpSubTree(type, a, root, n);
     printf("\n");
 }
 int main(){
