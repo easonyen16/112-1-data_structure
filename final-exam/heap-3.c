@@ -4,21 +4,23 @@
 #define PREORDER -1
 #define INORDER 0
 #define POSTORDER 1
-int hasHeap() {
+int hasHeap(){
     int n;
     scanf("%d", &n);
     return n;
 }
-
-int* loadHeap(int n) {
+int *loadHeap(int n){
     int size = sizeof(int) * (n+1);
     int* a = (int*) malloc(size);
     int i;
     for (i=1; i<=n; ++i) {
         scanf("%d", &a[i]);
-        printf("allocatc %d bytes of an integer array for a heap from a[1] to a[%d].\n", size, n);
     }
+    printf("allocate %d bytes of an integer array for a heap from a[1] to a[%d].\n", size, n);
     return a;
+}
+void freeHeap(int arr[]){
+    free(arr);
 }
 void dumpHeap(char msg[], int a[] , int n, int width){
     int i;
@@ -34,57 +36,53 @@ void dumpHeap(char msg[], int a[] , int n, int width){
     }
     printf("\n");
 }
-void dumpHeapSubTree(int type, int a[], int root, int n){
+void dumpSubTree(int type, int a[], int root, int n){
     int left = root+root;
     int right = left+1;
     if(type==PREORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
     if(left<=n){
         printf("(");
-        dumpHeapSubTree(type, a, left, n);
+        dumpSubTree(type, a, left, n);
         printf(")");
     }
     if(type==INORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
     if(right<=n){
         printf("(");
-        dumpHeapSubTree(type, a, right, n);
+        dumpSubTree(type, a, right, n);
         printf(")");
     }
     if(type==POSTORDER){
-        printf("%d ", a[root]);
+        printf("%d", a[root]);
     }
 }
 void dumpHeapTree(char msg[], int type, int a[], int root, int n){
     printf("%s", msg);
-    dumpHeapSubTree(type, a, root, n);
+    dumpSubTree(type, a, root, n);
     printf("\n");
-}
-void freeHeap(int a[]){
-    free(a);
 }
 void heapify(int a[], int n, int root){
     int left = root+root;
     int right = left+1;
     int larger = left;
-    if(right<=n && a[right]>a[larger]){
+    if(right<=n && a[right]>a[left]){
         larger = right;
     }
     if(a[root]<a[larger]){
-        int t=a[root];
-        a[root]=a[larger];
-        a[larger]=t;
+        printf("swap(%d,%d)", a[root], a[larger]);
+        int tmp = a[root];
+        a[root] = a[larger];
+        a[larger] = tmp;
         if(larger+larger<=n){
             heapify(a, n, larger);
-        }
-        else{
+        }else{
             printf("end\n");
         }
-    }
-    else{
-        printf("no more swa\np");
+    }else{
+        printf("no more swap\n");
     }
 }
 void buildMaxHeap(int a[], int n){
@@ -96,19 +94,17 @@ void buildMaxHeap(int a[], int n){
         dumpHeapTree("after heapify: ", INORDER, a, parent, n);
     }
 }
-int main() {
+int main(){
     int nodes, caseno=0;
     int* arr;
-    while ((nodes=hasHeap())) {
+    while((nodes=hasHeap())){
         if(caseno>0){
             printf("\n");
         }
         printf("Case #%d: there are %d unsorted integers.\n", ++caseno, nodes);
         arr = loadHeap(nodes);
         dumpHeap("input array:", arr, nodes, MAXNODES);
-        //dumpHeapTree(" preorder heaptree> ", PREORDER, arr, 1, nodes);
         dumpHeapTree("  inorder heaptree> ", INORDER, arr, 1, nodes);
-        //dumpHeapTree("postorder heaptree> ", POSTORDER, arr, 1, nodes);
         buildMaxHeap(arr, nodes);
         dumpHeap("max-heap array:", arr, nodes, MAXNODES);
         freeHeap(arr);
