@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdlib.h>
 
-// 定義一個國家結構體，包含名稱、人口、面積和指向下一個國家的指針。
 typedef struct _country {
     char *name;           // 國家名稱的指針
     int population;       // 人口數
@@ -10,17 +9,14 @@ typedef struct _country {
     struct _country *next; // 指向下一個國家結構體的指針
 } Country;
 
-// 定義頭指針和尾指針，用於維護國家鏈結列表
 Country *head, *tail;
 
-// 函數用於打印單個國家的信息
 void dumpCountry(char *msg, Country *p) {
     printf("%s Country(%s,%d,%d,next->%s)\n",
            msg, p->name, p->population, p->area,
            p->next == NULL ? "NULL" : p->next->name);
 }
 
-// 函數用於打印整個國家鏈結列表的信息
 void dumpList(Country *p) {
     while (p != NULL) {
         dumpCountry("dump", p); // 使用 dumpCountry 函數打印每個國家的信息
@@ -28,7 +24,6 @@ void dumpList(Country *p) {
     }
 }
 
-// 函數用於釋放整個國家鏈結列表佔用的記憶體
 void freeList(Country *p) {
     Country *temp;
     while (p != NULL) {
@@ -40,7 +35,6 @@ void freeList(Country *p) {
     }
 }
 
-// 函數用於將一個國家結構體添加到鏈結列表中
 void addList(Country *p) {
     if (tail == NULL) { // 如果列表為空
         head = tail = p; // 新元素既是頭也是尾
@@ -50,7 +44,6 @@ void addList(Country *p) {
     }
 }
 
-// 函數用於創建一個新的國家結構體並返回指向它的指針
 Country *newCountry(char *name, int population, int area) {
     int len = strlen(name) + 1;          // 計算名稱長度，加一是為了結束符 '\0'
     char *s = (char *)malloc(len);       // 為名稱分配記憶體
@@ -64,13 +57,11 @@ Country *newCountry(char *name, int population, int area) {
     return p;                            // 返回新建的國家結構體指針
 }
 
-// 主函數
 int main() {
     int n, caseno = 0, population, area;
     char by[12], order[12];
     char name[20];
 
-    // 讀取輸入數據直到文件結尾
     while (scanf("%d%s%s", &n, &by[0], order) == 3) {
         if (caseno > 0) {
             printf("\n"); // 在案例之間打印空行
