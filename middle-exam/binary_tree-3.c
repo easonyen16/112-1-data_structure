@@ -58,28 +58,27 @@ void addChildren(char*pleft, char*pright){
   }
 }
 int main(){
- int n, caseno=0, tokno;
- char buf[1024];
- char *pleft, *pright, *p;
- TreeNode*t, *left, *right;
- scanf("%d\n",&n);
- while(n--){
-   fgets(buf, sizeof(buf), stdin);
-   //printf("buf=#%s#\n", buf);
-   pleft=strchr(buf,'[');
-   pright=strchr(pleft+1,']');
-   *pright = '\0';
-   if(caseno>0) printf("\n");
-   printf("Case #%d: binary tree = <%s>\n", ++caseno,pleft+1);
-   head = tail = qsize = 0;
-   for(tokno=0,p=strtok(pleft+1,",");;++tokno){
-     if(tokno==0) addRoot(p);
-     else{
-       pleft=strtok(NULL,",");
-       if(pleft==NULL) break;
-       pright=strtok(NULL,",");
-       addChildren(pleft,pright);
-     }
-   }
- }
+  int n, caseno=0, tokno;
+  char buf[1024];
+  char *pleft, *pright, *p;
+  TreeNode*t, *left, *right;
+  scanf("%d\n",&n);
+  while(n--){
+    fgets(buf, sizeof(buf), stdin);
+    pleft=strchr(buf,'[');
+    pright=strchr(pleft+1,']');
+    *pright = '\0';
+    if(caseno>0) printf("\n");
+    printf("Case #%d: binary tree = <%s>\n", ++caseno,pleft+1);
+    head = tail = qsize = 0;
+    for(tokno=0,p=strtok(pleft+1,",");;++tokno){
+      if(tokno==0) addRoot(p);
+      else{
+        pleft=strtok(NULL,",");
+        if(pleft==NULL) break;
+        pright=strtok(NULL,",");
+        addChildren(pleft,pright);
+      }
+    }
+  }
 }
